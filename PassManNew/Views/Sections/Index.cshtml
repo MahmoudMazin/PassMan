@@ -1,0 +1,319 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model IEnumerable<PassManNew.Models.SectionViewModel>
+@{
+    ViewData["Title"] = Localizer.GetLocalized("Sections"); 
+}
+
+@section Css {
+
+    <!-- JQuery DataTable Css -->
+    <link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- Bootstrap Select Css -->
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+}
+
+
+<div class="block-header">
+    <h1> @ViewData["Title"] </h1>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card">
+
+            <div class="body">
+
+
+                <form class="form-horizontal">
+
+                    <div class="row clearfix">
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-3 form-control-label">
+                            <label for="CompanyFilter">@Localizer.GetLocalized("Company")</label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-9">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="CompanyFilter" class="show-tick " data-live-search="true" asp-items="ViewBag.CompanyID">
+                                        <option value="-1">@Localizer.GetLocalized("--- SELECT ---")</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-3 form-control-label">
+                            <label for="DeptFilter">@Localizer.GetLocalized("Dept")</label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-9">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <select id="DeptFilter" class="show-tick " data-live-search="true" asp-items="ViewBag.DeptID">
+                                        <option value="-1">@Localizer.GetLocalized("--- SELECT ---")</option>
+                                        <option value="All">@Localizer.GetLocalized("--- ALL ---")</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-3 form-control-label">
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-9">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <div class="switch">
+                                        <label>@Localizer.GetLocalized("All Records")<input id="SelectState" type="checkbox" checked><span class="lever"></span>@Localizer.GetLocalized("Active")</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-8 col-xs-offset-3">
+                            <button id="showrecord" type="button" class="btn-success">@Localizer.GetLocalized("Show")</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row " style="margin:20px;">
+                <div class="table-responsive">
+                    <table id="MyAjaxTable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.CompanyName)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.DeptName)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.SectionName)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Description)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Services)</th>
+                                <th class="text-center p-r-0" colspan="3">@Localizer.GetLocalized("Actions")</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/js/export_csv.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var CompanyDDL = $('#CompanyFilter');
+            var DeptDDL = $('#DeptFilter');
+
+            //DeptDDL.prop('disabled', true);
+
+            CompanyDDL.change(function () {
+
+                if ($(this).val() == "-1") {
+                    DeptDDL.empty();
+                    DeptDDL.append($('<option/>', { value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                    DeptDDL.append($('<option/>', { value: 'All', text: $('<textarea />').html('@Localizer.GetLocalized("--- ALL ---")').text() }));
+                    DeptDDL.val('-1');
+                    $('.show-tick').selectpicker('refresh');
+                }
+                else {
+
+                    $.ajax({
+                        url: "/Sections/GetDeptList",
+                        type: "POST",
+                        datatype: 'json',
+                        data: { Id: $(this).val() },
+                        success: function (data) {
+
+                            DeptDDL.empty();
+                            DeptDDL.append($('<option/>', { value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                            DeptDDL.append($('<option/>', { value: 'All', text: $('<textarea />').html('@Localizer.GetLocalized("--- ALL ---")').text() }));
+                            $(data).each(function (index, item) {
+                                DeptDDL.append($('<option/>', { value: item.Id, text: item.Name }));
+                            });
+                            $('.show-tick').selectpicker('refresh');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+
+        var mytable = $('#MyAjaxTable');
+
+        $(document).ready(function () {
+
+            //Exportable table
+            $(mytable).DataTable({
+                initComplete: function () {
+                    var api = this.api();
+                    $('#MyAjaxTable_filter input')
+                        .off('.DT')
+                        .on('keyup.DT', function (e) {
+                            if (e.keyCode == 13) {
+                                api.search(this.value).draw();
+                            }
+                        });
+                },
+                "language": {
+                    url: '/Home/GetDataTableLang'
+                    
+                },
+                "dom": "lBfrtip",
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 50,
+                "lengthMenu": [[50, 100, 150, 200, -1], [50, 100, 150, 200, 'All']],
+                "autoWidth": false,
+                "ajax": {
+                    "url": "/Sections/Index",
+                    "type": "POST",
+                    "contentType": "application/json; charset=utf-8",
+                    "async": true,
+                    "data": function (data) {
+                        let additionalValues = [];
+                        additionalValues[0] = document.getElementById("SelectState").checked;
+                        additionalValues[1] = $('#CompanyFilter').val();
+                        additionalValues[2] = $('#DeptFilter').val();
+                        data.AdditionalValues = additionalValues;
+                        return JSON.stringify(data);
+                    }
+                },
+                "columnDefs":
+                    [{
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }],
+                "columns": [
+                    { "data": "Id", "name": "Id",className:"text-center", "autoWidth": true },
+                    { "data": "CompanyName", "name": "CompanyName", className: "text-center","autoWidth": true },
+                    { "data": "DeptName", "name": "DeptName", className: "text-center", "autoWidth": true },
+                    { "data": "SectionName", "name": "SectionName", className: "text-center", "autoWidth": true },
+                    { "data": "Description", "name": "Description", className: "text-center", "autoWidth": true },
+                    {
+                        className: "text-center", "autoWidth": true, "render": function (data, type, full, meta) { return '<a class="btn btn-success  waves-effect btn-xs" href="/Services/Index/' + full.Id + '">' + full.Services + '</a>'; }
+                    },
+                    {
+                        className: "ActionColumnWidth", "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-success  waves-effect btn-xs" href="/Sections/Details/' + full.Id + '"><i class="material-icons">dehaze</i></a>';
+                        }
+                    },
+                    {
+                        className: "ActionColumnWidth", "render": function (data, type, full, meta) { return '<a class="btn bg-yellow  waves-effect btn-xs " href="/Sections/Edit/' + full.Id + '"><i class="material-icons">edit</i></a>'; }
+                    },
+                    {
+                        className: "ActionColumnWidth", data: null, render: function (data, type, row) {
+                                    var txt = row.State == 'Active' ? '<i class="material-icons">delete</i>' : '<i class="material-icons">delete_forever</i>';
+                                    return "<a href='#' class='btn btn-danger  waves-effect btn-xs' onclick=ChangeState('" + row.Id + "'); >" + txt + "</a>";
+                                }
+                    }
+                ],
+                "responsive": true,
+                "buttons": [
+                    {
+                        text: '<i class="material-icons">file_download</i> ',
+                        action: function (e, dt, node, config) {
+                            $.ajax({
+                                "url": "/Sections/GetExcel",
+                                "data": dt.ajax.params(),
+                                "success": function (res, status, xhr) {
+                                    exportToCsv('export.csv', res['data']);
+                                }
+                            });
+                        },
+                        init: function (api, node, config) {
+                            $(node).removeClass('dt-button');
+                            $(node).addClass('btn btn-success waves-effect m-r-5');
+                            $(node).attr('href', '/Sections/GetExcel');
+                        }
+                    },
+                    {
+                        text: '<i class="material-icons">photo_filter</i> ',
+                        action: function (e, dt, node, config) {
+                           callCreate();
+                        },
+                        init: function (api, node, config) {
+                            $(node).removeClass('dt-button');
+                            $(node).addClass('btn bg-blue waves-effect m-r-5');
+                        }
+                    }
+                ]
+            });
+
+        });
+
+        
+
+        function callCreate() {
+            var DepId = $('#DeptFilter').val();
+            if (DepId != "-1") {
+                window.location.href = "/Sections/Create/" + DepId;
+            }
+            else {
+                window.location.href = "/Sections/Create/";
+            }
+            };
+
+
+        $('#showrecord').click(function () {
+            oTable = mytable.DataTable();
+            oTable.draw();
+        });
+
+
+        function ChangeState(Id)
+        {
+            if (confirm($('<textarea />').html("@Localizer.GetLocalized("Are you sure...?")").text()))
+            {
+                State(Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        function State(Id)
+        {
+          var url = '@Url.Content("~/")' + "Sections/Delete";
+          $.post(url, { Id: Id}, function (data)
+          {
+              if (data=='Succeeded')
+              {
+                  oTable = mytable.DataTable();
+                  oTable.draw();
+              }
+              else
+              {
+                  alert(data);
+              }
+          });
+        }
+
+
+    </script>
+
+}
+
+

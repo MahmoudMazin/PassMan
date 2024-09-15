@@ -1,0 +1,143 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model IEnumerable<PassManNew.Models.UsersPerLink>
+@{
+    ViewData["Title"] = Localizer.GetLocalized("User Access Report");
+}
+
+@section Css {
+
+    <!-- JQuery DataTable Css -->
+    <link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
+}
+
+
+<div class="block-header">
+    <h1> @ViewData["Title"] </h1>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card">
+
+            <div class="row " style="margin:20px;padding-top:40px;">
+                <div class="table-responsive">
+                    <table id="MyAjaxTable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.UserName)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Company)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Dept)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Section)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Service)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Link)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Web)</th>
+                                <th class="text-center p-r-0">@Localizer.GetLocalized("Actions")</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/js/export_csv.js"></script>
+    
+
+
+    <script>
+
+        var mytable = $('#MyAjaxTable');
+
+        $(document).ready(function () {
+
+            //Exportable table
+            $(mytable).DataTable({
+                initComplete: function () {
+                    var api = this.api();
+                    $('#MyAjaxTable_filter input')
+                        .off('.DT')
+                        .on('keyup.DT', function (e) {
+                            if (e.keyCode == 13) {
+                                api.search(this.value).draw();
+                            }
+                        });
+                },
+                "language": {
+                    url: '/Home/GetDataTableLang'
+
+                },
+                "order": [[1, "desc"]],
+                "dom": "lBfrtip",
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 150,
+                "lengthMenu": [[50, 100, 150, 200, -1], [50, 100, 150, 200, 'All']],
+                "autoWidth": false,
+                "ajax": {
+                    "url": "/UsersPerLinks/Index",
+                    "type": "POST",
+                    "contentType": "application/json; charset=utf-8",
+                    "async": true,
+                    "data": function (data) {
+                        let additionalValues = [];
+                        additionalValues[0] = "";
+                        data.AdditionalValues = additionalValues;
+                        return JSON.stringify(data);
+                    }
+                },                
+                "columns": [
+                    { "data": "UserName", "name": "UserName", className: "text-center","autoWidth": true },                   
+                    { "data": "Company", "name": "Company", className: "text-center", "autoWidth": true },
+                    { "data": "Dept", "name": "Dept", className: "text-center", "autoWidth": true },
+                    { "data": "Section", "name": "Section", className: "text-center", "autoWidth": true },
+                    { "data": "Service", "name": "Service", className: "text-center", "autoWidth": true },
+                    { "data": "Link", "name": "Link", className: "text-center", "autoWidth": true },
+                    { "data": "Web", "name": "Web", className: "text-center", "autoWidth": true },
+                    {
+                        className: "", "render": function (data, type, full, meta) { return '<a class="btn bg-yellow  waves-effect btn-xs " href="/Links/Edit/' + full.LinkId + '"><i class="material-icons">edit</i></a>'; }
+                    }
+            ],
+                "responsive": true,
+                "buttons": [
+                    {
+                        text: '<i class="material-icons">file_download</i> ',
+                        action: function (e, dt, node, config) {
+                            $.ajax({
+                                "url": "/UsersPerLinks/GetExcel",
+                                "data": dt.ajax.params(),
+                                "success": function (res, status, xhr) {
+                                    exportToCsv('export.csv', res['data']);
+                                }
+                            });
+                        },
+                        init: function (api, node, config) {
+                            $(node).removeClass('dt-button');
+                            $(node).addClass('btn btn-success waves-effect m-r-5');
+                            $(node).attr('href', '/UsersPerLinks/GetExcel');
+                        }
+                    }
+                ]
+            });
+
+        });       
+
+    </script>
+
+}
+
+

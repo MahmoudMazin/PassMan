@@ -1,0 +1,208 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model IEnumerable<PassManNew.Models.CompanyViewModel>
+@{
+    ViewData["Title"] = Localizer.GetLocalized("Companies");
+}
+
+@section Css {
+    <!-- JQuery DataTable Css -->
+    <link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+}
+
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card">
+
+            <div class="body">
+
+                <div class="text-right">
+                    <div class="switch">
+                        <label>@Localizer.GetLocalized("All Records")<input id="SelectState" type="checkbox" checked><span class="lever"></span>@Localizer.GetLocalized("Active")</label>
+                    </div>
+                </div>
+
+
+                <div class="table-responsive">
+                    <table id="MyAjaxTable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.CompanyName)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Address)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.Depts)</th>
+                                <th class="text-center">@Html.DisplayNameFor(model => model.State)</th>
+                                <th class="text-center p-r-0" colspan="3">@Localizer.GetLocalized("Actions")</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/js/export_csv.js"></script>
+    
+    <script>
+
+        var mytable = $('#MyAjaxTable');
+
+        $(document).ready(function () {
+
+            //Exportable table
+            $(mytable).DataTable({
+                initComplete: function () {
+                    var api = this.api();
+                    $('#MyAjaxTable_filter input')
+                        .off('.DT')
+                        .on('keyup.DT', function (e) {
+                            if (e.keyCode == 13) {
+                                api.search(this.value).draw();
+                            }
+                        });
+                },
+                "language": {
+                    url: '/Home/GetDataTableLang'                    
+                },
+                "dom": "lBfrtip",
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 50,
+                "lengthMenu": [[50, 100, 150, 200, -1], [50, 100, 150, 200, 'All']],
+                "autoWidth": false,
+                "ajax": {
+                    "url": "/Companies/Index",
+                    "type": "POST",
+                    "contentType": "application/json; charset=utf-8",
+                    "async": true,
+                    "data": function (data) {
+                        let additionalValues = [];
+
+                        additionalValues[0] = document.getElementById("SelectState").checked;
+                        additionalValues[1] = 'Any Variable';
+                        data.AdditionalValues = additionalValues;
+                        return JSON.stringify(data);
+                    }
+                },
+                "columnDefs":
+                    [{
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }],
+                "columns": [
+                    { "data": "Id", "name": "Id",className:"text-center", "autoWidth": true },
+                    { "data": "CompanyName", "name": "CompanyName", className: "text-center","autoWidth": true },
+                    { "data": "Address", "name": "Address", className: "text-center", "autoWidth": true },
+                    {
+                        className: "text-center", "autoWidth": true, "render": function (data, type, full, meta) { return '<a class="btn btn-success  waves-effect btn-xs" href="/Depts/Index/' + full.Id + '">'+ full.Depts +'</a>'; }
+                    },
+                    { "data": "State", "name": "State", className: "text-center", "autoWidth": true },
+                    {
+                        className:"ActionColumnWidth", "render": function (data, type, full, meta) { return '<a class="btn btn-success  waves-effect btn-xs" href="/Companies/Details/' + full.Id + '"><i class="material-icons">dehaze</i></a>'; }
+                    },
+                    {
+                        className: "ActionColumnWidth", "render": function (data, type, full, meta) { return '<a class="btn bg-yellow  waves-effect btn-xs " href="/Companies/Edit/' + full.Id + '"><i class="material-icons">edit</i></a>'; }
+                    },
+                    {
+                        className: "ActionColumnWidth", data: null, render: function (data, type, row) {
+                            var txt = row.State == 'Active' ? '<i class="material-icons">delete</i>' : '<i class="material-icons">delete_forever</i>';
+                            return "<a href='#' class='btn btn-danger  waves-effect btn-xs' onclick=ChangeState('" + row.Id + "'); >" + txt + "</a>";
+                        }
+                    }
+                ],
+                "responsive": true,
+                "buttons": [
+                    {
+                        text: '<i class="material-icons">file_download</i> ',
+                        action: function (e, dt, node, config) {
+                            $.ajax({
+                                "url": "/Companies/GetExcel",
+                                "data": dt.ajax.params(),
+                                "success": function (res, status, xhr) {
+                                    exportToCsv('export.csv', res['data']);
+                                }
+                            });
+                        },
+                        init: function (api, node, config) {
+                            $(node).removeClass('dt-button');
+                            $(node).addClass('btn btn-success waves-effect m-r-5');
+                            $(node).attr('href', '/Companies/GetExcel');
+                        }
+                    },
+                    {
+                        text: '<i class="material-icons">photo_filter</i> ',
+                        action: function (e, dt, node, config) {
+                            window.location.href = '/Companies/create';
+                        },
+                        init: function (api, node, config) {
+                            $(node).removeClass('dt-button');
+                            $(node).addClass('btn bg-blue waves-effect m-r-5');
+                            $(node).attr('href', '/Companies/create');
+                        }
+                    }
+                ]
+            });
+
+        });
+
+        $('#SelectState').change(function () {
+
+            oTable = mytable.DataTable();
+            oTable.draw();
+        });
+
+
+        function ChangeState(Id)
+        {
+                    
+            if (confirm($('<textarea />').html("@Localizer.GetLocalized("Are you sure...?")").text()))
+            {
+                State(Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        function State(Id)
+        {
+          var url = '@Url.Content("~/")' + "Companies/Delete";
+          $.post(url, { Id: Id}, function (data)
+          {
+              if (data=='Succeeded')
+              {
+                  oTable = mytable.DataTable();
+                  oTable.draw();
+              }
+              else
+              {
+                  alert(data);
+              }
+          });
+        }
+
+
+    </script>
+
+}

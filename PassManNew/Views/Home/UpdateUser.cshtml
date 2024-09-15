@@ -1,0 +1,192 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model PassManNew.Models.UserViewModel
+@{
+    ViewData["Title"] = "Update User Profile";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+
+            <div class="body">
+                <br />
+                <div class="row clearfix">
+                    <form id="profile-form" method="post" enctype="multipart/form-data">
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input asp-for="Id" class="form-control hidden" disabled />
+                        <input asp-for="IsActive" class="form-control hidden" />                       
+                        <input asp-for="AccessFailedCount" class="form-control hidden" />
+
+                        <div class="row p-l-20">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label asp-for="UserName"></label>
+                                        <div class="form-line">
+                                            <input asp-for="UserName" class="form-control" placeholder="@Html.DisplayNameFor(model => model.UserName)" />
+                                        </div>
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="PersonName"></label>
+                                        <div class="form-line">
+                                            <input asp-for="PersonName" class="form-control" placeholder="@Html.DisplayNameFor(model => model.PersonName)" />
+                                        </div>
+                                        <span asp-validation-for="PersonName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    @if (Model.IsEmailConfirmed)
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Email"></label>
+                                                <div class="form-line">
+                                                    <input asp-for="@Model.Email" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Email)" />
+                                                </div>
+
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Email"></label>
+                                                <div class="form-line">
+                                                    <input asp-for="@Model.Email" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Email)" />
+
+                                                </div>
+                                                <a id="email-verification" style="float:right;" onclick="SendConfirmEmail('@Model.Id')" class="btn btn-link">Send verification email</a>
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="col-md-6">
+                                        <label asp-for="PhoneNumber"></label>
+                                        <div class="form-line">
+                                            <input asp-for="PhoneNumber" class="form-control" placeholder="eg. 00966540554905" />
+                                        </div>
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <label asp-for="UserPhoto"></label>: <br />
+                                        @if (Model.ExistingPhoto != null)
+                                        {
+                                            <img src="data:image;base64,@System.Convert.ToBase64String(Model.ExistingPhoto)" alt="User" /> <br /> <br />
+                                            <label asp-for="RemoveImage"></label>
+                                            <div class="switch">
+                                                <label>No<input asp-for="RemoveImage" type="checkbox" checked=@Model.RemoveImage><span class="lever switch-col-cyan"></span>Yes</label>
+                                            </div> <br /> <br />
+                                        }
+                                        <div class="form-line">
+                                            <input asp-for="UserPhoto" type="file" />
+                                        </div>
+                                        <span>@Localizer.GetLocalized("Recommended size: 144x144 px and Type: Jpeg")</span>
+                                        <span asp-validation-for="UserPhoto" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label asp-for="Remarks"></label>
+                                        <div class="form-line">
+                                            <textarea asp-for="Remarks" rows="4" class="form-control no-resize" placeholder="@Html.DisplayNameFor(model => model.Remarks)"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <label asp-for="IsLockOutEnabled"></label>
+                                    <div class="switch">
+                                        <label>Off<input asp-for="IsLockOutEnabled" type="checkbox" checked=@Model.IsLockOutEnabled><span class="lever switch-col-grey"></span>On</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label asp-for="IsEmailConfirmed"></label>
+                                    <div class="switch">
+                                        <label>No<input asp-for="IsEmailConfirmed" type="checkbox" checked=@Model.IsEmailConfirmed><span class="lever switch-col-grey"></span>Yes</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label asp-for="IsPhoneNumberConfirmed"></label>
+                                    <div class="switch">
+                                        <label>No<input asp-for="IsPhoneNumberConfirmed" type="checkbox" checked=@Model.IsPhoneNumberConfirmed><span class="lever switch-col-grey"></span>Yes</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label asp-for="IsUserAdmin"></label>
+                                    <div class="switch">
+                                        <label>Off<input asp-for="IsUserAdmin" type="checkbox" checked=@Model.IsUserAdmin><span class="lever switch-col-grey"></span>On</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row p-l-20">
+                            <div class="col-md-12">
+                                <button id="update-profile-button" type="submit" class="btn btn-success waves-effect">Save</button> |
+                                <a asp-area="" class="btn bg-blue waves-effect" asp-controller="Home" asp-action="AppUsers">@Localizer.GetLocalized("Back to List")</a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+
+    function SendConfirmEmail(Id)
+        {
+            if (confirm($('<textarea />').html("@Localizer.GetLocalized("Are you sure...?")").text()))
+            {
+                ConfirmationEmail(Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+    function ConfirmationEmail(Id)
+        {
+        var url = '@Url.Content("~/")' + "Home/SendVerificationEmail";
+          $.post(url, { Id: Id}, function (data)
+          {
+              
+              if (data=='Succeeded')
+              {              
+                  $('#email-verification').addClass('disabled');
+                  alert("Email Sent");
+              }
+              else
+              {
+                  alert(data);
+              }
+          });
+        }
+</script>

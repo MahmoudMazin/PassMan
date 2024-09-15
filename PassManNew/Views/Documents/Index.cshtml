@@ -1,0 +1,326 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+
+@model PassManNew.Models.DocSharingViewModel;
+@{
+    ViewData["Title"] = Localizer.GetLocalized("Documents Folder");
+}
+
+@section Css {
+
+    <!-- JQuery DataTable Css -->
+    <link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- Bootstrap Select Css -->
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+
+}
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card">
+
+            <div class="body">
+
+                <div class="row clearfix">
+
+
+                    <form asp-action="UploadDocument" enctype="multipart/form-data" method="post">
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="Doc.FileTitle"></label>
+                                <div class="form-line">
+                                    <input asp-for="Doc.FileTitle" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Doc.FileTitle)" />
+                                </div>
+                                <span asp-validation-for="Doc.FileTitle" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Doc.FileType"></label>
+                                <div class="form-line">
+                                    <select asp-for="Doc.FileType" class="form-control show-tick" data-live-search="true" asp-items="Html.GetEnumSelectList<PassManNew.Models.Shared.FileType>()">
+                                        <option value="">@Localizer.GetLocalized("--- SELECT ---")</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Doc.FileType" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="FormFile"></label>
+                                <div class="form-line">
+                                    <input asp-for="FormFile" type="file" />
+                                </div>
+                                <span asp-validation-for="FormFile" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Doc.IsPublic"></label>
+                                <div class="form-line switch">
+                                    <label>Private<input asp-for="Doc.IsPublic" type="checkbox" checked><span class="lever"></span>Public</label>
+                                </div>
+                                <span asp-validation-for="Doc.IsPublic" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group toggleShow">
+                                <label asp-for="AuthorizeUsers"></label>
+                                <div class="form-line">
+                                    <select asp-for="AuthorizeUsers" class="form-control show-tick" data-selected-text-format="count" data-live-search="true" multiple asp-items="ViewBag.UsersList"></select>
+                                </div>
+                                <span asp-validation-for="AuthorizeUsers" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success waves-effect">@Localizer.GetLocalized("Save")</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card p-t-20 p-b-20 p-l-20 p-r-20">
+            <div class="text-right">
+                <div class="switch">
+                    <label>My Docs<input id="SelectState" type="checkbox" checked><span class="lever"></span>All Docs</label>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="MyAjaxTable" class="table table-bordered table-striped table-hover dataTable js-exportable">
+                    <thead>
+                        <tr>
+                            @*<th class="text-center">S.No.</th>*@
+                            <th class="text-center">ID</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.Docs.FirstOrDefault().FileType)</th>
+                            <th class="text-center">Shared By</th>
+                            <th class="text-center">Is Public?</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.Docs.FirstOrDefault().FileTitle)</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.Docs.FirstOrDefault().FileName)</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.Docs.FirstOrDefault().ContentType)</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.Docs.FirstOrDefault().UploadDateTime)</th>
+                            <th class="text-center">@Html.DisplayNameFor(model => model.Docs.FirstOrDefault().Size)</th>
+                            <th class="text-center p-r-3" colspan="3">@Localizer.GetLocalized("Actions")</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/js/export_csv.js"></script>
+    <script src="~/plugins/momentjs/moment.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+
+
+
+    <script>
+
+        var mytable = $('#MyAjaxTable');
+
+        $(document).ready(function () {
+
+            //Exportable table
+            $(mytable).DataTable({
+                initComplete: function () {
+                    var api = this.api();
+                    $('#MyAjaxTable_filter input')
+                        .off('.DT')
+                        .on('keyup.DT', function (e) {
+                            if (e.keyCode == 13) {
+                                api.search(this.value).draw();
+                            }
+                        });
+                },
+                "language": {
+                    url: '/Home/GetDataTableLang'
+                    
+                },
+                "dom": "lBfrtip",
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 50,
+                "lengthMenu": [[50, 100, 150, 200, -1], [50, 100, 150, 200, 'All']],
+                "autoWidth": false,
+                "ajax": {
+                    "url": "/Documents/Index",
+                    "type": "POST",
+                    "contentType": "application/json; charset=utf-8",
+                    "async": true,
+                    "data": function (data) {
+                        let additionalValues = [];
+                        additionalValues[0] = document.getElementById("SelectState").checked;
+                        additionalValues[1] = 'null';
+                        data.AdditionalValues = additionalValues;
+                        return JSON.stringify(data);
+                    },
+                    "dataSrc": "data.Docs",
+                },
+                "columnDefs":
+                    [
+                        {
+                            "targets": [0],
+                            "searchable": false,
+                            "sortable": false
+                        },
+                        {
+                            "targets": [0],
+                            "visible": false
+                        }
+                    ],
+                "order": [[7, 'desc']],
+                "columns": [
+                    //{ "data": null, className: "text-center", "autoWidth": true },
+                    { "data": "Id", "name": "Id", className: "text-center", "autoWidth": true },
+                    { "data": "FileType", "name": "FileType", className: "text-center", "autoWidth": true },
+                    { "data": "Owner.PersonName", "name": "Owner.PersonName", className: "text-center", "autoWidth": true },
+                    { "data": "IsPublic", "name": "IsPublic", className: "text-center", "autoWidth": true },
+                    { "data": "FileTitle", "name": "FileTitle", className: "text-center", "autoWidth": true },
+                    { "data": "FileName", "name": "FileName", className: "text-center", "autoWidth": true },
+                    { "data": "ContentType", "name": "ContentType", className: "text-center", "autoWidth": true },
+
+                    {
+                        "data": "UploadDateTime", "name": "UploadDateTime", className: "text-center", "autoWidth": true,
+                        render: function (data, type, row) { if (data) return window.moment(data).format("DD-MMM-YY HH:mm"); else return null; }
+                    },
+                    { "data": "Size", "name": "Size", className: "text-center", "autoWidth": true },
+                    {
+                        className: "ActionColumnWidth", "render": function (data, type, full, meta) { return '<a class="btn bg-yellow  waves-effect btn-xs " href="/Documents/DownloadDocument/' + full.Id + '"><i class="material-icons">file_download</i></a>'; }
+                    },
+                    {
+                        className: "ActionColumnWidth", data: "UserCanModify", "render": function (data, type, full, meta) {
+                            if (data == true)
+                                return "<a class='btn bg-yellow waves-effect btn-xs' href='/Documents/Edit/" + full.Id + "'><i class='material-icons'>edit</i></a>"
+                            else
+                                return null
+                        }
+                    },
+                    {
+                        className: "ActionColumnWidth", data: "UserCanModify", render: function(data, type, row) {
+                            if (data == true) return "<a href='#' class='btn btn-danger  waves-effect btn-xs' onclick=ChangeState('" + row.Id + "'); > <i class='material-icons'>delete</i> </a>"
+                            else return null
+                        }
+                    }
+                ],
+                "responsive": true,
+                "buttons": [
+                    {
+                        text: '<i class="material-icons">file_download</i> ',
+                        action: function (e, dt, node, config) {
+                            $.ajax({
+                                "url": "/Documents/GetExcel",
+                                "data": dt.ajax.params(),
+                                "success": function (res, status, xhr) {
+                                    exportToCsv('export.csv', res['data']);
+                                }
+                            });
+                        },
+                        init: function (api, node, config) {
+                            $(node).removeClass('dt-button');
+                            $(node).addClass('btn btn-success waves-effect m-r-5');
+                            $(node).attr('href', '/Documents/GetExcel');
+                        }
+                    }
+                ]
+            });
+
+
+            // For S.No.
+            //$(mytable).DataTable().on('draw.dt', function () {
+            //    var PageInfo = $('#MyAjaxTable').DataTable().page.info();
+            //    $(mytable).DataTable().column(0, { page: 'current' }).nodes().each(function (cell, i) {
+            //        cell.innerHTML = i + 1 + PageInfo.start;
+            //    });
+            //});
+
+            //$(mytable).DataTable().on('order.dt search.dt', function () {
+            //    $(mytable).DataTable().column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            //        cell.innerHTML = i + 1;
+            //        $(mytable).DataTable().cell(cell).invalidate('dom');
+            //    });
+            //}).draw();
+
+            $(".toggleShow").toggle();
+
+
+
+        });
+
+        $("#Doc_IsPublic").on('change', function () {
+            $(".toggleShow").toggle();
+        });
+
+
+
+        $('#SelectState').change(function () {
+
+            oTable = mytable.DataTable();
+            oTable.draw();
+        });
+
+
+
+        function ChangeState(Id)
+        {
+            if (confirm($('<textarea />').html("@Localizer.GetLocalized("Are you sure...?")").text()))
+            {
+                State(Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        function State(Id)
+        {
+          var url = '@Url.Content("~/")' + "Documents/Delete";
+          $.post(url, { Id: Id}, function (data)
+          {
+              if (data=='Succeeded')
+              {
+                  alert('Document Deleted Successfully.')
+                  oTable = mytable.DataTable();
+                  oTable.draw();
+              }
+              else
+              {
+                  alert(data);
+              }
+          });
+        }
+
+    </script>
+
+}

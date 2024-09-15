@@ -1,0 +1,45 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model PassManNew.Models.Dashboard
+@{
+    ViewData["Title"] = Localizer.GetLocalized("Home");
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Css {
+
+   <!-- Morris Chart Css-->
+    <link href="~/plugins/morrisjs/morris.css" rel="stylesheet" />
+
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+}
+<div class="container-fluid">
+
+    <div id="NavigationBlock"></div>
+
+</div>
+
+@section Scripts {
+
+    <script type="text/jscript">
+        $(document).ready(function () {
+            $("#NavigationBlock").load('/home/GetNavigationBlock?category=1');
+        });
+    </script>
+
+    <script src="~/js/pages/rpa.js"></script>
+
+    <script type="text/jscript">
+
+        function NavigateNext() {
+            $("#NavigationBlock").load('/home/GetNavigationBlock?category=' + arguments[0] + '&id=' + arguments[1]);
+        };
+
+    </script>
+
+}

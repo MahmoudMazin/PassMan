@@ -1,0 +1,41 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model List<PassManNew.Models.CategoryNavViewModel>
+
+<style type="text/css">
+    .block-header > h4 > a:hover {
+        cursor: pointer !important;
+        font-size: 15px;
+    }
+
+    .block-header > h4 > a, .block-header {
+        color: #8BC34A !important;
+        font-size: 15px;
+    }
+</style>
+
+<div class="block-header">
+
+    <h4 style="font-size:15px;"><a class="text" onclick="NavigateNext('1');"> @Localizer.GetLocalized("Home >")  </a> @Html.Raw(Model.First().Breadcumb) @Model.First().Category</h4>
+
+</div>
+
+<div class="row clearfix">
+    @foreach (CategoryNavViewModel item in Model)
+    {
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <a onclick="@item.NextNav">
+                <div class="info-box @item.TabColor hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">@item.TabIcon</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">@Localizer.GetLocalized(item.TabTitle)</div>
+                        <div class="h3 m-t-0">@item.Name</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+

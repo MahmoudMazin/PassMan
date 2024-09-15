@@ -1,0 +1,140 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@model PassManNew.Models.UserViewModel
+@{
+    ViewData["Title"] = "User Profile Details";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+
+            <div class="body">
+                <br />
+                <div class="row clearfix">
+                    <form id="profile-form" method="post">
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input asp-for="Id" class="form-control hidden" disabled />
+                        <div class="col-md-12">
+
+                            <div class="col-md-7">
+                                <div class="row">
+
+                                    <div class="col-md-3">
+                                        @{
+                                            var user = await UserManager.FindByIdAsync(Model.Id);
+
+                                            if (user.UserPhoto != null)
+                                            {
+                                                <img src="@Url.Action("GetUserPhoto", "Home",new { id = Model.Id })" width="144" height="144" alt="User" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/images/user.png" width="144" height="144" alt="User" />
+                                            }
+                                        }
+                                    </div>
+                                    <div class="col-md-9">
+                                       <div class="col-md-6  ">
+                                            <div class="row">
+                                                <label asp-for="UserName"></label> : @Model.UserName
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <label asp-for="Email"></label> : @Model.Email
+                                            </div>
+                                            <br />
+
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="row">
+                                                <label asp-for="PersonName"></label> : @Model.PersonName
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <label asp-for="PhoneNumber"></label> : @Model.PhoneNumber
+                                            </div>
+                                            <br />
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-9 col-md-offset-3 ">
+                                        <label asp-for="Remarks"></label> : @Model.Remarks
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 padding-0">
+
+
+                                <div class="col-md-6 padding-0">
+                                    <div class="col-md-12">
+                                        <label asp-for="IsLockOutEnabled"></label>
+                                        <div class="switch">
+                                            <label>Off<input asp-for="IsLockOutEnabled" type="checkbox" disabled checked=@Model.IsLockOutEnabled><span class="lever switch-col-grey"></span>On</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label asp-for="IsEmailConfirmed"></label>
+                                        <div class="switch">
+                                            <label>No<input asp-for="IsEmailConfirmed" type="checkbox" disabled checked=@Model.IsEmailConfirmed><span class="lever switch-col-grey"></span>Yes</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label asp-for="IsPhoneNumberConfirmed"></label>
+                                        <div class="switch">
+                                            <label>No<input asp-for="IsPhoneNumberConfirmed" type="checkbox" disabled checked=@Model.IsPhoneNumberConfirmed><span class="lever switch-col-grey"></span>Yes</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label asp-for="AccessFailedCount"></label>
+                                        <div class="form-line">
+                                            @Model.AccessFailedCount
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label asp-for="LockOutEndTime"></label>
+                                        <div class="form-line">
+                                            @Model.LockOutEndTime
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-7">
+                                <div class="col-md-9 col-md-offset-3 ">
+                                    <a asp-action="UpdateUser" class="btn bg-yellow waves-effect" asp-route-id="@Model.Id">Edit</a> |
+                                    <a asp-area="" class="btn bg-blue waves-effect" asp-controller="Home" asp-action="AppUsers">@Localizer.GetLocalized("Back to List")</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

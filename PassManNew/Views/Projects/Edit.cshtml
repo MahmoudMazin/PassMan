@@ -1,0 +1,139 @@
+﻿@model PassManNew.Models.ProjectViewModel
+
+@{
+    ViewData["Title"] = "Edit Project";
+}
+
+@section Css {
+
+    <!-- Bootstrap Select Css -->
+    <link href="../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="~/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+}
+
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                <div class="row clearfix">
+
+
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="State" />
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="col-sm-4">
+
+                            <div class="form-group">
+                                <label asp-for="Name"></label>
+                                <div class="form-line">
+                                    <input asp-for="Name" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Name)" />
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="RefNo"></label>
+                                <div class="form-line">
+                                    <input asp-for="RefNo" class="form-control" placeholder="@Html.DisplayNameFor(model => model.RefNo)" />
+                                </div>
+                                <span asp-validation-for="RefNo" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Address"></label>
+                                <div class="form-line">
+                                    <input asp-for="Address" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Address)" />
+                                </div>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="StartDate"></label>
+                                <div class="form-line">
+                                    <input asp-for="StartDate" type="text" asp-format="{0:dd-MMM-yyyy}" class="form-control datepicker" />
+                                </div>
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EndDate"></label>
+                                <div class="form-line">
+                                    <input asp-for="EndDate" type="text" asp-format="{0:dd-MMM-yyyy}" class="form-control datepicker" />
+                                </div>
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ClientManagerName"></label>
+                                <div class="form-line">
+                                    <select asp-for="ClientProjectManagerId" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.CId">
+                                        <option disabled selected>--- SELECT ---</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="ClientProjectManagerId" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="AzardManagerName"></label>
+                                <div class="form-line">
+                                    <select asp-for="AzardProjectManagerId" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.AId">
+                                        <option disabled selected>--- SELECT ---</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="AzardProjectManagerId" class="text-danger"></span>
+                            </div>
+
+                            <br />
+                            <button type="submit" class="btn btn-success waves-effect">Save</button> |
+                            <a asp-area="" class="btn bg-blue waves-effect" asp-action="Index">Back to List</a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- Select Plugin Js -->
+    <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <script src="~/plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="~/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <script>
+
+
+        $(function () {
+            $('.datepicker').bootstrapMaterialDatePicker({
+                format: 'DD-MMM-YYYY',
+                clearButton: true,
+                time: false,
+                weeweekStart: 1
+            });
+        });
+
+
+
+    </script>
+
+}

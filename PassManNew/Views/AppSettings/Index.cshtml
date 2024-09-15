@@ -1,0 +1,219 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model PassManNew.Models.SettingViewModel
+
+@{
+    ViewData["Title"] = Localizer.GetLocalized("Application Settings");
+}
+
+@section Css {   
+
+}
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                <div class="row clearfix">
+
+                    <form asp-action="Index" method="post">
+                        <input asp-for="Id" type="hidden" />
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                            <li role="presentation" class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">@Localizer.GetLocalized("General")</a></li>
+                            <li role="presentation" class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer.GetLocalized("Email")</a></li>
+                            <li role="presentation" class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">@Localizer.GetLocalized("Google Map")</a></li>
+                        </ul>
+                        <br /><br />
+                        <div class="col-sm-4">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane animated flipInX active" id="tab_1">
+
+
+
+                                    <div class="form-group">
+                                        <label asp-for="UploadFileSize"></label>
+                                        <div class="form-line " style="width:70px;">
+                                            <input asp-for="UploadFileSize" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="UploadFileSize" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="DefaultAdminUserName"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="DefaultAdminUserName" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="DefaultAdminUserName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="DefaultAdminUserEmail"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="DefaultAdminUserEmail" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="DefaultAdminUserEmail" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="DefaultAdminUserPassword"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="DefaultAdminUserPassword" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="DefaultAdminUserPassword" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="DefaultUserResetPassword"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="DefaultUserResetPassword" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="DefaultUserResetPassword" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane animated flipInX" id="tab_2">
+
+                                    <div class="form-group">
+                                        <label asp-for="SmtpServer"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="SmtpServer" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="SmtpServer" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="SmtpPort"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="SmtpPort" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="SmtpPort" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="SmtpUserName"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="SmtpUserName" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="SmtpUserName" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="SenderName"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="SenderName" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="SenderName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="SmtpPassword"></label>
+                                        <div class="form-line ">
+                                            <input  asp-for="SmtpPassword" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="SmtpPassword" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="PopServer"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="PopServer" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="PopServer" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="PopPort"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="PopPort" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="PopPort" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="PopUserName"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="PopUserName" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="PopUserName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="PopPassword"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="PopPassword" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="PopPassword" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="IsSystemEmailEnabled"></label>
+                                        <div class="switch">
+                                            <label>Off<input asp-for="IsSystemEmailEnabled" type="checkbox" checked=@Model.IsSystemEmailEnabled><span class="lever switch-col-cyan"></span>On</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="IsEmailConfirmationRequired"></label>
+                                        <div class="switch ">
+                                            <label>Off<input asp-for="IsEmailConfirmationRequired" type="checkbox" checked=@Model.IsEmailConfirmationRequired><span class="lever switch-col-cyan"></span>On</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="IsResetPasswordEmailRequired"></label>
+                                        <div class="switch">
+                                            <label>Off<input asp-for="IsResetPasswordEmailRequired" type="checkbox" checked=@Model.IsResetPasswordEmailRequired><span class="lever switch-col-cyan"></span>On</label>
+                                        </div>
+                                    </div>
+
+                                   
+                                </div>
+                                <div role="tabpanel" class="tab-pane animated flipInX" id="tab_3">
+
+
+
+                                    <div class="form-group">
+                                        <label asp-for="GoogleApiState"></label>
+                                        <div class="switch">
+                                            <label>Off<input asp-for="GoogleApiState" type="checkbox" checked=@Model.GoogleApiState><span class="lever switch-col-cyan"></span>On</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="GoogleApi"></label>
+                                        <div class="form-line ">
+                                            <input asp-for="GoogleApi" class="form-control " />
+                                        </div>
+                                        <span asp-validation-for="GoogleApi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success waves-effect">@Localizer.GetLocalized("Save")</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+   
+    
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+}

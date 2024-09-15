@@ -1,0 +1,125 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model PassManNew.Models.DocSharingViewModel;
+@{
+    ViewData["Title"] = "Documents Folder";
+}
+
+@section Css {
+
+    <!-- Bootstrap Select Css -->
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+
+}
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card">
+
+            <div class="body">
+
+                <div class="row clearfix">
+
+
+                    <form asp-action="Edit" enctype="multipart/form-data" method="post">
+                        <input asp-for="Doc.Id" type="hidden" />
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="Doc.FileTitle"></label>
+                                <div class="form-line">
+                                    <input asp-for="Doc.FileTitle" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Doc.FileTitle)" />
+                                </div>
+                                <span asp-validation-for="Doc.FileTitle" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Doc.FileType"></label>
+                                <div class="form-line">
+                                    <select asp-for="Doc.FileType" class="form-control show-tick" data-live-search="true" asp-items="Html.GetEnumSelectList<PassManNew.Models.Shared.FileType>()">
+                                        <option value="">@Localizer.GetLocalized("--- SELECT ---")</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Doc.FileType" class="text-danger"></span>
+                            </div>
+
+
+
+
+
+                            <div class="form-group">
+                                <label>Existing File</label>
+                                <div class="form-line">
+                                    File Name: @Model.Doc.FileName
+                                    <br /> Size: @Model.Doc.Size
+                                    <br /> Content Type: @Model.Doc.ContentType
+                                    <br /><a class="btn bg-yellow  waves-effect btn-xs " href="~/Documents/DownloadDocument/@Model.Doc.Id"><i class="material-icons">file_download</i>Download</a>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="FormFile"></label>
+                                <div class="form-line">
+                                    <input asp-for="FormFile" type="file" data-val="false" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Doc.IsPublic"></label>
+                                <div class="form-line switch">
+                                    <label>Private<input asp-for="Doc.IsPublic" type="checkbox" checked="@Model.Doc.IsPublic"><span class="lever"></span>Public</label>
+                                </div>
+                                <span asp-validation-for="Doc.IsPublic" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group toggleShow">
+                                <label asp-for="AuthorizeUsers"></label>
+                                <div class="form-line">
+                                    <select asp-for="AuthorizeUsers" class="form-control show-tick" data-selected-text-format="count" data-live-search="true" multiple asp-items="ViewBag.UsersList"></select>
+                                </div>
+                                <span asp-validation-for="AuthorizeUsers" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success waves-effect">@Localizer.GetLocalized("Save")</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <!-- Select Plugin Js -->
+    <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            if ($('#Doc_IsPublic').is(":checked"))
+                $(".toggleShow").toggle();
+        });
+
+        $("#Doc_IsPublic").on('change', function () {
+            $(".toggleShow").toggle();
+        });
+
+    </script>
+}
+
+

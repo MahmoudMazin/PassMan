@@ -1,0 +1,189 @@
+﻿@using PassManNew.Resources
+@inject LocalizationService Localizer
+@model PassManNew.Models.ServiceViewModel
+@{
+    ViewData["Title"] = @Localizer.GetLocalized("Edit Service");
+}
+@section Css {
+
+    <!-- Bootstrap Select Css -->
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+}
+
+
+<div class="block-header">
+    <h1> @ViewData["Title"]</h1>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+
+
+                <form asp-action="Edit" id="ServiceForm" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="State" />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-sm-4 ">
+
+                            <div class="form-group">
+                                <label asp-for="CompanyName"></label>
+                                <div class="form-line">
+                                    <select asp-for="CompanyId" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.CId">
+                                        <option value="-1">@Localizer.GetLocalized("--- SELECT ---")</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="CompanyId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="DeptName"></label>
+                                <div class="form-line">
+                                    <select asp-for="DeptId" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.DId">
+                                        <option value="-1">@Localizer.GetLocalized("--- SELECT ---")</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="DeptId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="SectionName"></label>
+                                <div class="form-line">
+                                    <select asp-for="SectionId" class="form-control show-tick" data-live-search="true" asp-items="ViewBag.SecId">
+                                        <option value="-1">@Localizer.GetLocalized("--- SELECT ---")</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="SectionId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ServiceName"></label>
+                                <div class="form-line">
+                                    <input asp-for="ServiceName" class="form-control" placeholder="@Html.DisplayNameFor(model => model.ServiceName)" />
+                                </div>
+                                <span asp-validation-for="ServiceName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Logo"></label> <br />
+                                @if (Model.ExistingLogo != null)
+                                {
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.ExistingLogo)" alt="Dept" /> <br /><br />
+                                    <label asp-for="RemoveImage"></label>
+                                    <div class="switch">
+                                        <label>@Localizer.GetLocalized("No")<input asp-for="RemoveImage" type="checkbox" checked=@Model.RemoveImage><span class="lever switch-col-cyan"></span>@Localizer.GetLocalized("Yes")</label>
+                                    </div> <br /> <br />
+                                }
+                                <div class="form-line">
+                                    <input asp-for="Logo" type="file" />
+                                </div>
+                                <span>@Localizer.GetLocalized("Recommended size: 144x144 px and Type: Jpeg")</span>
+                                <span asp-validation-for="Logo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
+                                <div class="form-line">
+                                    <textarea rows="4" asp-for="Description" class="form-control" placeholder="@Html.DisplayNameFor(model => model.Description)"></textarea>
+                                </div>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row m-l-5">
+                        <button type="submit" class="btn btn-success waves-effect">@Localizer.GetLocalized("Save")</button> |
+                        <button type="button" class="btn bg-blue waves-effect" onclick="window.location.href = '/Services/Index/' + $('#SectionId').val();">@Localizer.GetLocalized("Back to List")</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+    }
+
+    <!-- Select Plugin Js -->
+    <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <script>
+            $(document).ready(function () {
+
+            var CompanyDDL = $('#CompanyId');
+            var DeptDDL = $('#DeptId');
+            var SectionDDL = $('#SectionId');
+
+            CompanyDDL.change(function () {
+
+                if ($(this).val() == "-1") {
+                DeptDDL.empty();
+                    DeptDDL.append($('<option />', { value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                    DeptDDL.val('-1');
+
+                    SectionDDL.empty();
+                    SectionDDL.append($('<option />', {value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                    SectionDDL.val('-1');
+
+                    $('.show-tick').selectpicker('refresh');
+
+                }
+                else {
+                $.ajax({
+                    url: "/Services/GetDeptList",
+                    type: "POST",
+                    datatype: 'json',
+                    data: { Id: $(this).val() },
+                    success: function (data) {
+                        DeptDDL.empty();
+                        DeptDDL.append($('<option/>', { value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                        $(data).each(function (index, item) {
+                            DeptDDL.append($('<option/>', { value: item.Id, text: item.Name }));
+                        });
+
+                        SectionDDL.empty();
+                        SectionDDL.append($('<option/>', { value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                        SectionDDL.val('-1');
+
+                        $('.show-tick').selectpicker('refresh');
+                    }
+                });
+                }
+            });
+
+            DeptDDL.change(function () {
+
+                if ($(this).val() == "-1") {
+                SectionDDL.empty();
+                    SectionDDL.append($('<option />', { value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                    SectionDDL.val('-1');
+                    $('.show-tick').selectpicker('refresh');
+                }
+                else {
+
+                $.ajax({
+                    url: "/Services/GetSectionList",
+                    type: "POST",
+                    datatype: 'json',
+                    data: { Id: $(this).val() },
+                    success: function (data) {
+                        SectionDDL.empty();
+                        SectionDDL.append($('<option/>', { value: '-1', text: $('<textarea />').html('@Localizer.GetLocalized("--- SELECT ---")').text() }));
+                        $(data).each(function (index, item) {
+                            SectionDDL.append($('<option/>', { value: item.Id, text: item.Name }));
+                        });
+                        $('.show-tick').selectpicker('refresh');
+                    }
+                });
+                }
+            });
+        });
+    </script>
+}

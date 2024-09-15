@@ -1,0 +1,840 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access Failed" xml:space="preserve">
+    <value>فشل الوصول</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>أجراءات</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>كل السجلات </value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="ADMIN" xml:space="preserve">
+    <value>مشرف</value>
+  </data>
+  <data name="All Records" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="App Settings" xml:space="preserve">
+    <value>إعدادات التطبيقات</value>
+  </data>
+  <data name="App Users" xml:space="preserve">
+    <value>المستخدمون</value>
+  </data>
+  <data name="Authorize Users" xml:space="preserve">
+    <value>تخويل المستخدمين</value>
+  </data>
+  <data name="Back to List" xml:space="preserve">
+    <value>العودة للقائمة</value>
+  </data>
+  <data name="Background Jobs" xml:space="preserve">
+    <value>وظائف الخلفية</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>شركات</value>
+  </data>
+  <data name="Company Name" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+  <data name="Company Project" xml:space="preserve">
+    <value>مشروع الشركة</value>
+  </data>
+  <data name="Confirm password" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>محتوى</value>
+  </data>
+  <data name="Content Type" xml:space="preserve">
+    <value>نوع المحتوى</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاريخ</value>
+  </data>
+  <data name="Default Admin Password" xml:space="preserve">
+    <value>كلمة مرور المسؤول الافتراضية</value>
+  </data>
+  <data name="Default Admin User Email" xml:space="preserve">
+    <value>البريد الإلكتروني الافتراضي لمستخدم المسؤول</value>
+  </data>
+  <data name="Default Admin User Name" xml:space="preserve">
+    <value>اسم المستخدم المسؤول الافتراضي</value>
+  </data>
+  <data name="Default User Reset Password" xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور الافتراضية للمستخدم</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>الإدارات</value>
+  </data>
+  <data name="Dept Name" xml:space="preserve">
+    <value>اسم القسم</value>
+  </data>
+  <data name="Depts" xml:space="preserve">
+    <value>الإدارات</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="Doc" xml:space="preserve">
+    <value>ملف</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>بريد إلكتروني</value>
+  </data>
+  <data name="Email Confirmed" xml:space="preserve">
+    <value>تم تأكيد البريد الإلكتروني</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>رسالة خطأ</value>
+  </data>
+  <data name="File Name" xml:space="preserve">
+    <value>اسم الملف</value>
+  </data>
+  <data name="File Title" xml:space="preserve">
+    <value>عنوان الملف</value>
+  </data>
+  <data name="File Type" xml:space="preserve">
+    <value>نوع الملف</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>جنرال لواء</value>
+  </data>
+  <data name="Google API Key" xml:space="preserve">
+    <value>مفتاح Google API</value>
+  </data>
+  <data name="Google Map" xml:space="preserve">
+    <value>خرائط جوجل</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Is Email Confirmation Required?" xml:space="preserve">
+    <value>هل يلزم تأكيد البريد الإلكتروني؟</value>
+  </data>
+  <data name="Is Email Enabled?" xml:space="preserve">
+    <value>هل البريد الإلكتروني ممكّن؟</value>
+  </data>
+  <data name="Is GoogleMap Enabled?" xml:space="preserve">
+    <value>هل GoogleMap ممكّن؟</value>
+  </data>
+  <data name="Is Permit Email Required?" xml:space="preserve">
+    <value>هل البريد الإلكتروني للتصريح مطلوب؟</value>
+  </data>
+  <data name="Is Reset Password Email Required?" xml:space="preserve">
+    <value>هل إعادة تعيين كلمة المرور البريد الإلكتروني مطلوب؟</value>
+  </data>
+  <data name="Link Name" xml:space="preserve">
+    <value>اسم الارتباط</value>
+  </data>
+  <data name="Links" xml:space="preserve">
+    <value>الروابط</value>
+  </data>
+  <data name="Lock Out Enabled" xml:space="preserve">
+    <value>تمكين القفل</value>
+  </data>
+  <data name="LockOut End" xml:space="preserve">
+    <value>قفل النهاية</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="MAIN" xml:space="preserve">
+    <value>الأساسية</value>
+  </data>
+  <data name="My Documents" xml:space="preserve">
+    <value>مستنداتي</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>مالك</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمه السر</value>
+  </data>
+  <data name="Person Full Name" xml:space="preserve">
+    <value>الاسم الكامل للشخص</value>
+  </data>
+  <data name="Person Name" xml:space="preserve">
+    <value>اسم الشخص</value>
+  </data>
+  <data name="Person name can be Alphabets" xml:space="preserve">
+    <value>يمكن أن يكون اسم الشخص أبجديًا</value>
+  </data>
+  <data name="Phone Confirmed" xml:space="preserve">
+    <value>تم تأكيد الهاتف</value>
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="Pop Password" xml:space="preserve">
+    <value>كلمة مرور POP</value>
+  </data>
+  <data name="Pop Port" xml:space="preserve">
+    <value>منفذ POP</value>
+  </data>
+  <data name="Pop Server" xml:space="preserve">
+    <value>خادم الحاسوب POP</value>
+  </data>
+  <data name="Pop User Name" xml:space="preserve">
+    <value>اسم مستخدم POP</value>
+  </data>
+  <data name="Recommended size: 144x144 px and Type: Jpeg" xml:space="preserve">
+    <value>النوع: Jpeg والحجم الموصى به: 144 × 144 بكسل</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Remove Image?" xml:space="preserve">
+    <value>إزالة الصورة؟</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>مطلوب</value>
+  </data>
+  <data name="Section Name" xml:space="preserve">
+    <value>اسم القسم</value>
+  </data>
+  <data name="Sections" xml:space="preserve">
+    <value>الأقسام</value>
+  </data>
+  <data name="Sender Name" xml:space="preserve">
+    <value>اسم المرسل</value>
+  </data>
+  <data name="Service Name" xml:space="preserve">
+    <value>اسم الخدمة</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>خدمات</value>
+  </data>
+  <data name="Share Type" xml:space="preserve">
+    <value>نوع المشاركة</value>
+  </data>
+  <data name="SIDC's - Business Application" xml:space="preserve">
+    <value>صدق -  تطبيق الأعمال</value>
+  </data>
+  <data name="SIDCs" xml:space="preserve">
+    <value>صدق</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>بحجم</value>
+  </data>
+  <data name="Smtp Password" xml:space="preserve">
+    <value>كلمة مرور SMTP</value>
+  </data>
+  <data name="Smtp Port" xml:space="preserve">
+    <value>منفذ SMTP</value>
+  </data>
+  <data name="Smtp Server" xml:space="preserve">
+    <value>خادم الحاسوب SMTP</value>
+  </data>
+  <data name="Smtp User Name" xml:space="preserve">
+    <value>اسم مستخدم SMTP</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>حالة</value>
+  </data>
+  <data name="The field {0} is required." xml:space="preserve">
+    <value>الحقل {0} مطلوب.</value>
+  </data>
+  <data name="The {0} must be at least {2} and at max {1} characters long." xml:space="preserve">
+    <value>يجب أن يكون {0} على الأقل {2} والحد الأقصى {1} من الأحرف.</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>سمة</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="Upload File Size" xml:space="preserve">
+    <value>تحميل حجم الملف</value>
+  </data>
+  <data name="User Id" xml:space="preserve">
+    <value>معرف المستخدم</value>
+  </data>
+  <data name="User Name" xml:space="preserve">
+    <value>اسم االمستخدم</value>
+  </data>
+  <data name="User Photo" xml:space="preserve">
+    <value>صورة المستخدم</value>
+  </data>
+  <data name="UserCanModify" xml:space="preserve">
+    <value>يمكن للمستخدم التعديل</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>إصدار</value>
+  </data>
+  <data name="In Active" xml:space="preserve">
+    <value>غير نشط</value>
+  </data>
+  <data name="Loading Data..." xml:space="preserve">
+    <value>تحميل البيانات...</value>
+  </data>
+  <data name="--- ALL ---" xml:space="preserve">
+    <value>--- الكل ---</value>
+  </data>
+  <data name="--- SELECT ---" xml:space="preserve">
+    <value>--- تحديد ---</value>
+  </data>
+  <data name="Are you sure...?" xml:space="preserve">
+    <value>هل أنت واثق...؟</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>يعرض</value>
+  </data>
+  <data name="Documents Folder" xml:space="preserve">
+    <value>مجلد المستندات</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>شركة</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>قسم</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>الروابط</value>
+  </data>
+  <data name="Section" xml:space="preserve">
+    <value>الأقسام</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>خدمات</value>
+  </data>
+  <data name="Company Details" xml:space="preserve">
+    <value>تفاصيل الشركة</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Edit Company" xml:space="preserve">
+    <value>تحرير الشركة</value>
+  </data>
+  <data name="Not Available" xml:space="preserve">
+    <value>غير متاح</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Change Password" xml:space="preserve">
+    <value>تغيير كلمة السر</value>
+  </data>
+  <data name="Change your account settings" xml:space="preserve">
+    <value>تغيير إعدادات حسابك</value>
+  </data>
+  <data name="Confirm new password" xml:space="preserve">
+    <value>تأكيد كلمة المرور الجديدة</value>
+  </data>
+  <data name="Current password" xml:space="preserve">
+    <value>كلمة المرور الحالي</value>
+  </data>
+  <data name="Email sending system is disabled by admin. Please contact administrator." xml:space="preserve">
+    <value>تم تعطيل نظام إرسال البريد الإلكتروني من قبل المسؤول. يرجى الاتصال بالمسؤول.</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>مرحبا</value>
+  </data>
+  <data name="Manage your account" xml:space="preserve">
+    <value>إدارة حسابك</value>
+  </data>
+  <data name="New password" xml:space="preserve">
+    <value>كلمة المرور الجديدة</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>حساب تعريفي</value>
+  </data>
+  <data name="Profile has been updated" xml:space="preserve">
+    <value>تم تحديث الملف الشخصي</value>
+  </data>
+  <data name="Profile Image" xml:space="preserve">
+    <value>صورة الملف الشخصي</value>
+  </data>
+  <data name="Send verification email" xml:space="preserve">
+    <value>ارسل ايميل التفعيل</value>
+  </data>
+  <data name="SIDC's" xml:space="preserve">
+    <value>صدق</value>
+  </data>
+  <data name="SIDC's - {0}" xml:space="preserve">
+    <value>صدق - {0}</value>
+  </data>
+  <data name="SIDCs - Confirm your email" xml:space="preserve">
+    <value>صدق - أكد بريدك الإلكتروني</value>
+  </data>
+  <data name="Sign Out" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="The file is too large. Maximum allowed size is 100 KB." xml:space="preserve">
+    <value>الملف كبير جدًا. الحجم الأقصى المسموح به هو 100 كيلو بايت.</value>
+  </data>
+  <data name="The File Type is not permitted. Only Jpeg format is allowed." xml:space="preserve">
+    <value>نوع الملف غير مسموح به. يسمح فقط بتنسيق Jpeg.</value>
+  </data>
+  <data name="The new password and confirmation password do not match." xml:space="preserve">
+    <value>كلمة المرور الجديدة وكلمة مرور التأكيد غير متطابقتين.</value>
+  </data>
+  <data name="Unable to load user with ID '{0}'." xml:space="preserve">
+    <value>تعذر تحميل المستخدم بالمعرف '{0}'.</value>
+  </data>
+  <data name="Unexpected error occurred deleting user photo for user with ID '{0}'." xml:space="preserve">
+    <value>حدث خطأ غير متوقع أثناء حذف صورة المستخدم للمستخدم بالمعرف "{0}".</value>
+  </data>
+  <data name="Unexpected error occurred setting email for user with ID '{0}'." xml:space="preserve">
+    <value>حدث خطأ غير متوقع أثناء تعيين البريد الإلكتروني لمستخدم بالمعرف "{0}".</value>
+  </data>
+  <data name="Unexpected error occurred setting person name for user with ID '{0}'." xml:space="preserve">
+    <value>حدث خطأ غير متوقع أثناء تعيين اسم شخص لمستخدم بالمعرف "{0}".</value>
+  </data>
+  <data name="Unexpected error occurred setting phone number for user with ID '{0}'." xml:space="preserve">
+    <value>حدث خطأ غير متوقع أثناء تعيين رقم الهاتف لمستخدم بالمعرف "{0}".</value>
+  </data>
+  <data name="Unexpected error occurred uploading image for user with ID '{0}'." xml:space="preserve">
+    <value>حدث خطأ غير متوقع أثناء تحميل صورة لمستخدم بالمعرف "{0}".</value>
+  </data>
+  <data name="Update password" xml:space="preserve">
+    <value>تطوير كلمة السر</value>
+  </data>
+  <data name="User changed their password successfully." xml:space="preserve">
+    <value>قام المستخدم بتغيير كلمة المرور الخاصة به بنجاح.</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Verification email sent. Please check your email." xml:space="preserve">
+    <value>تم إرسال البريد الإلكتروني للتحقق. من فضلك تفقد بريدك الالكتروني.</value>
+  </data>
+  <data name="Version:" xml:space="preserve">
+    <value>إصدار:</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="Your password has been changed." xml:space="preserve">
+    <value>تم تغيير كلمة السر الخاصة بك.</value>
+  </data>
+  <data name="Access denied" xml:space="preserve">
+    <value>تم الرفض</value>
+  </data>
+  <data name="An error occurred while processing your request." xml:space="preserve">
+    <value>حدث خطأ أثناء معالجة طلبك.</value>
+  </data>
+  <data name="Business Application" xml:space="preserve">
+    <value>تطبيقات الأعمال</value>
+  </data>
+  <data name="Confirm email" xml:space="preserve">
+    <value>تأكيد عنوان البريد الإلكتروني</value>
+  </data>
+  <data name="Email has been sent to your provided address. Please check your email to reset your password." xml:space="preserve">
+    <value>تم إرسال البريد الإلكتروني إلى عنوانك المقدم. يرجى التحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك.</value>
+  </data>
+  <data name="Email is not valid" xml:space="preserve">
+    <value>البريد الإلكتروني غير صالح</value>
+  </data>
+  <data name="Enter your email address that you used to register. We'll send you an email with your username and a link to reset your password." xml:space="preserve">
+    <value>أدخل عنوان بريدك الإلكتروني الذي استخدمته للتسجيل. سنرسل لك بريدًا إلكترونيًا يحتوي على اسم المستخدم الخاص بك ورابطًا لإعادة تعيين كلمة المرور الخاصة بك.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
+  <data name="Error confirming email for user with ID '{0}':" xml:space="preserve">
+    <value>خطأ في تأكيد البريد الإلكتروني للمستخدم بالمعرف '{0}':</value>
+  </data>
+  <data name="Error in Sending Email. Please contact Administrator." xml:space="preserve">
+    <value>خطأ في إرسال البريد الإلكتروني. يرجى الاتصال بالمسؤول.</value>
+  </data>
+  <data name="Forgot Password" xml:space="preserve">
+    <value>هل نسيت كلمة السر</value>
+  </data>
+  <data name="Forgot Password Confirmation" xml:space="preserve">
+    <value>نسيت كلمة المرور</value>
+  </data>
+  <data name="Forgot your password?" xml:space="preserve">
+    <value>نسيت رقمك السري؟</value>
+  </data>
+  <data name="Invalid login attempt." xml:space="preserve">
+    <value>محاولة تسجيل الدخول غير صحيحة.</value>
+  </data>
+  <data name="Locked out" xml:space="preserve">
+    <value>اقفل</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>يسجل</value>
+  </data>
+  <data name="Register New Application User" xml:space="preserve">
+    <value>تسجيل مستخدم جديد للتطبيق</value>
+  </data>
+  <data name="Remember me?" xml:space="preserve">
+    <value>تذكرنى؟</value>
+  </data>
+  <data name="Request ID:" xml:space="preserve">
+    <value>طلب معرف:</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>إعادة ضبط</value>
+  </data>
+  <data name="RESET MY PASSWORD" xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور الخاصة بي</value>
+  </data>
+  <data name="Reset password" xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور</value>
+  </data>
+  <data name="Reset password confirmation" xml:space="preserve">
+    <value>تأكيد إعادة تعيين كلمة المرور</value>
+  </data>
+  <data name="Reset Your Password" xml:space="preserve">
+    <value>اعد ضبط كلمه السر</value>
+  </data>
+  <data name="SIDC" xml:space="preserve">
+    <value>صدق</value>
+  </data>
+  <data name="SIDCs - Reset Password" xml:space="preserve">
+    <value>صدق - إعادة تعيين كلمة المرور</value>
+  </data>
+  <data name="Sign In" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Sign in to start your session" xml:space="preserve">
+    <value>تسجيل الدخول لبدء الجلسة الخاصة بك</value>
+  </data>
+  <data name="Sign in!" xml:space="preserve">
+    <value>تسجيل الدخول!</value>
+  </data>
+  <data name="Thank you for confirming your email." xml:space="preserve">
+    <value>شكرا لتأكيد بريدك الإلكتروني.</value>
+  </data>
+  <data name="The password and confirmation password do not match." xml:space="preserve">
+    <value>كلمة المرور وكلمة المرور التأكيدية غير متطابقتين</value>
+  </data>
+  <data name="This account has been locked out, please try again later." xml:space="preserve">
+    <value>تم حظر هذا الحساب ، يرجى المحاولة مرة أخرى في وقت لاحق.</value>
+  </data>
+  <data name="Try Again?" xml:space="preserve">
+    <value>حاول مجددا؟</value>
+  </data>
+  <data name="User account locked out." xml:space="preserve">
+    <value>حساب المستخدم مغلق.</value>
+  </data>
+  <data name="User created a new account with password." xml:space="preserve">
+    <value>أنشأ المستخدم حسابًا جديدًا بكلمة مرور.</value>
+  </data>
+  <data name="User logged in." xml:space="preserve">
+    <value>قام المستخدم بتسجيل الدخول.</value>
+  </data>
+  <data name="User Not Found." xml:space="preserve">
+    <value>المستخدم ليس موجود.</value>
+  </data>
+  <data name="Username is not valid" xml:space="preserve">
+    <value>اسم المستخدم غير متاح</value>
+  </data>
+  <data name="You do not have access to this resource." xml:space="preserve">
+    <value>ليس لديك حق الوصول إلى هذا المورد.</value>
+  </data>
+  <data name="Your Account is Disabled." xml:space="preserve">
+    <value>حسابك مغلق.</value>
+  </data>
+  <data name="Your password has been reset. Please click below to log in." xml:space="preserve">
+    <value>تم إعادة تعيين كلمة المرور الخاصة بك. يرجى الضغط في الاسفل لتسجيل الدخول.</value>
+  </data>
+  <data name="Access Web" xml:space="preserve">
+    <value>الوصول إلى الويب</value>
+  </data>
+  <data name="ACTIVATE MY ACCOUNT" xml:space="preserve">
+    <value>تفعيل حسابي</value>
+  </data>
+  <data name="Application Settings" xml:space="preserve">
+    <value>إعدادات التطبيق</value>
+  </data>
+  <data name="Avator" xml:space="preserve">
+    <value>أفتور</value>
+  </data>
+  <data name="CHANGE YOUR PASSWORD" xml:space="preserve">
+    <value>غير كلمة المرور الخاصة بك</value>
+  </data>
+  <data name="Create Dept" xml:space="preserve">
+    <value>إنشاء قسم</value>
+  </data>
+  <data name="Create Link" xml:space="preserve">
+    <value>إنشاء رابط</value>
+  </data>
+  <data name="Create Section" xml:space="preserve">
+    <value>إنشاء قسم</value>
+  </data>
+  <data name="Create Service" xml:space="preserve">
+    <value>إنشاء الخدمة</value>
+  </data>
+  <data name="Dear" xml:space="preserve">
+    <value>العزيز</value>
+  </data>
+  <data name="Dept" xml:space="preserve">
+    <value>قسم</value>
+  </data>
+  <data name="Dept Details" xml:space="preserve">
+    <value>تفاصيل القسم</value>
+  </data>
+  <data name="Dept ID" xml:space="preserve">
+    <value>معرف القسم</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>ملف</value>
+  </data>
+  <data name="Edit Dept" xml:space="preserve">
+    <value>قسم التحرير</value>
+  </data>
+  <data name="Edit Link" xml:space="preserve">
+    <value>تحرير الارتباط</value>
+  </data>
+  <data name="Edit Section" xml:space="preserve">
+    <value>تحرير القسم</value>
+  </data>
+  <data name="Edit Service" xml:space="preserve">
+    <value>تحرير الخدمة</value>
+  </data>
+  <data name="Either Document Not Found or You dont have Ownership." xml:space="preserve">
+    <value>إما أن المستند غير موجود أو ليس لديك ملكية.</value>
+  </data>
+  <data name="Error in deleting document. Please contact Administrator" xml:space="preserve">
+    <value>خطأ في حذف المستند. يرجى الاتصال بالمسؤول</value>
+  </data>
+  <data name="Error:" xml:space="preserve">
+    <value>خطأ:</value>
+  </data>
+  <data name="File has been successfully uploaded." xml:space="preserve">
+    <value>تم تحميل الملف بنجاح.</value>
+  </data>
+  <data name="File has been uploaded and permission has been set successfully." xml:space="preserve">
+    <value>تم تحميل الملف وتم تعيين الإذن بنجاح.</value>
+  </data>
+  <data name="Here's your password!" xml:space="preserve">
+    <value>ها هي كلمة مرورك!</value>
+  </data>
+  <data name="Home &gt;" xml:space="preserve">
+    <value>الصفحة الرئيسية &gt;</value>
+  </data>
+  <data name="Invalid call of the service." xml:space="preserve">
+    <value>مكالمة غير صحيحة للخدمة.</value>
+  </data>
+  <data name="Link Details" xml:space="preserve">
+    <value>تفاصيل الارتباط</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Or go to our website" xml:space="preserve">
+    <value>أو اذهب إلى موقعنا على الإنترنت</value>
+  </data>
+  <data name="Permission has been set successfully." xml:space="preserve">
+    <value>تم تعيين الإذن بنجاح.</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="Please attach the document." xml:space="preserve">
+    <value>يرجى إرفاق الوثيقة.</value>
+  </data>
+  <data name="Please reset your password by click below" xml:space="preserve">
+    <value>يرجى إعادة تعيين كلمة المرور الخاصة بك عن طريق النقر أدناه</value>
+  </data>
+  <data name="Registration completed" xml:space="preserve">
+    <value>أكملت تسجيل</value>
+  </data>
+  <data name="Section Details" xml:space="preserve">
+    <value>تفاصيل القسم</value>
+  </data>
+  <data name="Service Details" xml:space="preserve">
+    <value>تفاصيل الخدمة</value>
+  </data>
+  <data name="Settings has been saved." xml:space="preserve">
+    <value>تم حفظ الإعدادات.</value>
+  </data>
+  <data name="Specified user is not found." xml:space="preserve">
+    <value>المستخدم المحدد غير موجود.</value>
+  </data>
+  <data name="Thanks so much for joining Our Team!" xml:space="preserve">
+    <value>شكرا جزيلا لانضمامك إلى فريقنا!</value>
+  </data>
+  <data name="The file is too large. Maximum allowed size is {0} MB." xml:space="preserve">
+    <value>الملف كبير جدًا. الحجم الأقصى المسموح به هو {0} ميغا بايت.</value>
+  </data>
+  <data name="The File Type is not permitted." xml:space="preserve">
+    <value>نوع الملف غير مسموح به.</value>
+  </data>
+  <data name="The {0} must be number and Fourteen Digits only." xml:space="preserve">
+    <value>يجب أن يكون {0} رقمًا وأربعة عشر رقمًا فقط.</value>
+  </data>
+  <data name="There is an error in setting Permissions." xml:space="preserve">
+    <value>هناك خطأ في تعيين الأذونات.</value>
+  </data>
+  <data name="There is an error." xml:space="preserve">
+    <value>هنالك خطأ.</value>
+  </data>
+  <data name="TO FINISH SIGNING UP AND ACTIVATE YOUR ACCOUNT" xml:space="preserve">
+    <value>لإنهاء التسجيل وتفعيل حسابك</value>
+  </data>
+  <data name="Unable to Inactive this Company as {0} Dept(s) is active in this Company. Please inactivate all Depts and then try again." xml:space="preserve">
+    <value>تعذر إلغاء تنشيط هذه الشركة حيث إن {0} قسم (أقسام) نشط في هذه الشركة. يرجى إلغاء تنشيط جميع الإيداعات ثم المحاولة مرة أخرى.</value>
+  </data>
+  <data name="Unable to Inactive this Dept as {0} Sections are active in this Dept. Please inactivate all Sections and then try again." xml:space="preserve">
+    <value>يتعذر إلغاء تنشيط هذا القسم نظرًا لأن {0} الأقسام نشطة في هذا القسم. الرجاء إلغاء تنشيط جميع الأقسام ثم المحاولة مرة أخرى.</value>
+  </data>
+  <data name="Unable to Inactive this Section as {0} Services are active in this Section. Please inactivate all Services and then try again." xml:space="preserve">
+    <value>تعذر إلغاء تنشيط هذا القسم نظرًا لأن خدمات {0} نشطة في هذا القسم. يرجى إلغاء تنشيط جميع الخدمات ثم المحاولة مرة أخرى.</value>
+  </data>
+  <data name="Unable to Inactive this Service as {0} Links are active in this Service. Please inactivate all Links and then try again." xml:space="preserve">
+    <value>يتعذر إلغاء تنشيط هذه الخدمة نظرًا لأن {0} الروابط نشطة في هذه الخدمة. يرجى إلغاء تنشيط كافة الروابط ثم المحاولة مرة أخرى.</value>
+  </data>
+  <data name="Unable to load user." xml:space="preserve">
+    <value>تعذر تحميل المستخدم.</value>
+  </data>
+  <data name="User Not Found" xml:space="preserve">
+    <value>المستخدم ليس موجود</value>
+  </data>
+  <data name="Welcome!" xml:space="preserve">
+    <value>أهلا بك!</value>
+  </data>
+  <data name="YOU JUST CLICK BELOW" xml:space="preserve">
+    <value>أنت فقط انقر أدناه</value>
+  </data>
+  <data name="Your username is:" xml:space="preserve">
+    <value>اسم المستخدم الخاص بك هو:</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="Link User Access" xml:space="preserve">
+    <value>ربط وصول المستخدم</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>المستخدم</value>
+  </data>
+  <data name="User Access Report" xml:space="preserve">
+    <value>تقرير وصول المستخدم</value>
+  </data>
+  <data name="User Logs" xml:space="preserve">
+    <value>سجلات المستخدم</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>الويب</value>
+  </data>
+</root>
