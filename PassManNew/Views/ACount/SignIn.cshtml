@@ -1,0 +1,110 @@
+﻿@model PassManNew.Models.SignInViewModel
+
+@{
+    // ViewData["Title"] = @LocOptions.GetLocalized("Sign In");
+    ViewData["Title"] = "Sign In";
+
+}
+<style>
+    .sl-flag {
+        display: inline-block;
+        box-shadow: 0px 0px 3px rgba(0,0,0,0.4);
+        width: 15px;
+        height: 15px;
+        background: #aaa;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+        overflow: hidden;
+    }
+
+    .ar-SA {
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAUCAIAAAD+/qGQAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQuSURBVDhPlVXLbttGFJ3h8CHqYT0tqVLtwk4Ux0aTFl543X1/Lt/S7gt0U6DopmgKBC2QwHYcy3qYFsU3OSR77lAqsuim5GB0eWfmzLnn3hlx9j37j6dgrFR9rno0uTeyvROezxucaBhVNuGOesN+Z9CsNxVkCcCyKPFbFp8ZOXrVJL5L4BZ5QbbyMBqiOcHSd+/cYBUS7sXpxezo+aB3SAsUblEABogwsEIBwlAvwSlfrl7YOQ2RC9DrD6vFu+X87Zxwr76+ejV7NeoPZTUR0AXiJKIyl2oRYahomMzzCg99hZ7lmcwRPxeacG/c298+vv/5vVbNBrU0zxKZxDLGQs6EhsY10AAdYGGCxjTBdUPTNain+OFT13SYXux58TZMw5z0QsBMsBmbDqfD/tC0THgxtWk1u3a3abVsw0Zo8GhcdOvdltVq1Q5aVlPXDEMz0B82DxtmAzBu6KYyJSX8Yjv3NjcbwZ6zyXAy7AHXwD6WYZ30T58NZtP2l71GX3CjbjZquv3yi5eT9nRyMEHfsoDegv98fH7cPQblhbcAriwkcD3g3roaMot9IBPElchKnkspw9RPZCy4aNsHXbvTq/dqohYl0f3T/fX6Zr6Zr/01AnejTZAGggnILUssl0p00kHhKrHUd8m5pgvdwkvCgYCEODCgXZanMPzYD9IwyiLwCJLAjdx1sI7SWGV49+xw6QioIqBvzgEKZS3drHDTPE3zZBtvY5kwXoIgQJMsReXFWbwJN3N37ideKhMqox0sMvsdu3x9ef7ivNluYE9dGCf9EwSO0W2ESF2UEbQDCiIQXLt35ygPrEZYIIE9Pjq30IRzbuomW7HV76u7Xz4J9hUbj8eD/gB5Q6lhW5Qa6sYJHCd0gAsuQeKj+YmP9SCOcqSWxW688ZItKCMgzlA3OgtY8BB4d55GIuBQ0kmgU4DQENdj8PgUOMDKIAMJB4YS+gIORa1rwhSGpnHEq2SB9BkVQ5UokoHpuClK1AEdIymLDJRhXJ5dTjtTQzNxFjAJk3drVOUoQYQhDKT078Vfb356A1DwBbooRZUnzq7YN9++np3N6t0G8ovosPK4d2wbdUi2Tym2xuZ0oGGMWqO23e7X+9Dq2rn+8e0PmcywjW3aYi2cP5yHXxeCjdhoNOwNepZt5SoWAEGNbexCOEhMLXCgjBM8okflokJADTNRyIvtAw4FyEIfQEPfaBkHn1DUh2w4JtxGsw76lXw5XSh0p0Bx6guJmyUrSEQgInyUAYylt9xEG+gOREM3cbILvwyXIXA5u2CnZ6dHJ0edXociVZceYNDvvkhZHCNlqv1UwTOoRDsXBehjSOnFo2W4/eA5fzqcvWAg2+l27BpuGUoQ3daZMugiRH6rhFUGlc3OQT/KrDoFLAOZPCWK77P9X8i/DXdpuv9rodz+/4exfwD3ovIkADsLqgAAAABJRU5ErkJggg==');
+        background-size: cover;
+        background-position: center center;
+    }
+
+    .en-US {
+        background-size: cover;
+        background-position: center center;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTM0A1t6AAABhUlEQVQ4T2Ows82PjGixsc4LD2tysC/09Kjw8622tyuICG8u0w/cpGSCBzF4e1VmZkzw9anOzOj38a4KCW4IC22ECHYk1l9tn4gHMeTlTnZxLikvm+XiUpKW2hvgX+vnV5OVOQEoOGfOtv94AYOzU3Fd7XxHh6Lq6rlurqUx0W0J8Z1AnbW18yotonaYuOJBDBXls4A+bGpaBCTz86YEBtQCvVBSPAPIbY0oP1/aiAcxABU1Ny+2tclvbFjo5FgUF9uenNwNDLnmpkWEnV1TPRcY1O1tS4H6i4umA/0MDK2K8tlAwRqHpP1uoXgQKKraWpcClTY3LQZaCLQ5NaUX5OaWJY3++SeTC/AgBmA4AXUClUJs9ver8fKsAAYEUJCws4G21dXNB1oFdD/Qz8DQTk4C+bm2dn6DZ9bRiDQ8iAEYt8CoBpK5YBIYw0AEEZwSXX4oMB4PYoC6gCzAcDqrjGzEsMfen2xEmbMv1rSTjRi26dqRjShz9o2+6WQjBrSShQSkZAIADvW/HLrLY6cAAAAASUVORK5CYII=');
+    }
+</style>
+
+<div class="login-page">
+    <div class="login-box">
+        @* <div class="logo">
+        <a href="javascript:void(0);"><b>@LocOptions.GetLocalized("SIDC")</b></a>
+        <small>@LocOptions.GetLocalized("Business Application")</small>
+        </div> *@
+        <div class="card">
+            <div class="body">
+
+                <form id="account" method="post">
+                    @*  <div class="msg">@Localizer.GetLocalized("Sign in to start your session")</div> *@
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input asp-for="@Model.Email" class="form-control" placeholder="Email" autofocus />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input asp-for="@Model.Password" class="form-control" placeholder="Password" />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 p-t-5">
+
+                            <input asp-for="@Model.RememberMe" class="filled-in chk-col-pink" /> @*@Html.DisplayNameFor(m => m.Input.RememberMe)*@
+                            <label asp-for="@Model.RememberMe"></label>
+                        </div>
+                        <div class="col-xs-6">
+                            @* <button class="btn btn-block bg-pink waves-effect" type="submit">@Localizer.GetLocalized("Sign In")</button> *@
+                            <button class="btn btn-block bg-pink waves-effect" type="submit">SignIn</button>
+                        </div>
+                    </div>
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                            @* <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>*@
+                            @* @foreach (var item in LocOptions.Value.SupportedUICultures)
+                            {
+                            if (Thread.CurrentThread.CurrentCulture.Name != item.Name)
+                            {
+                            <a asp-controller="Culture" asp-action="SetCulture" asp-route-returnUrl="@returnUrl" asp-route-culture="@item.Name"><i class="sl-flag @item.Name"> </i><span> @item.TwoLetterISOLanguageName.ToUpper() </span></a>
+                            }
+                            }
+                            </div> *@
+                            @*  <div class="col-xs-6 align-right">
+                            <a id="forgot-password" asp-page="./ForgotPassword">@Localizer.GetLocalized("Forgot your password?")</a>
+                            </div> *@
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <environment include="Development">
+        <script src="~/js/admin.js"></script>
+        <script src="~/js/pages/examples/sign-in.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/admin.js"></script>
+        <script src="~/js/pages/examples/sign-in.js"></script>
+    </environment>
+}

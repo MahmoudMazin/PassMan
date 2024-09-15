@@ -30,20 +30,20 @@ namespace PassManNew.Controllers
         {
             return View();
         }
-        //public async Task<IActionResult> SignIn()
-        //{
-        //    SignInViewModel model = new SignInViewModel();
-        //    //var user =await  _userManager.FindByEmailAsync("aali@azards.com");
-        //   // var us = await _userManager.FindByNameAsync(user.UserName);
-        //    var result = await _signInManager.PasswordSignInAsync("admin", "123$Qwe", true, lockoutOnFailure: false);
-        //    return RedirectToAction("Index", "Home");
-        //    //return View(model);
-        //}
-        //[HttpPost]
         public async Task<IActionResult> SignIn()
         {
             SignInViewModel model = new SignInViewModel();
-            model.Email = "aali@azards.com"; model.Password = "123$Qwe"; model.RememberMe = true;
+            //var user =await  _userManager.FindByEmailAsync("aali@azards.com");
+            // var us = await _userManager.FindByNameAsync(user.UserName);
+           // var result = await _signInManager.PasswordSignInAsync("admin", "123$Qwe", true, lockoutOnFailure: false);
+           // return RedirectToAction("Index", "Home");
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignInViewModel model)
+        {
+            //SignInViewModel model = new SignInViewModel();
+          //  model.Email = "aali@azards.com"; model.Password = "123$Qwe"; model.RememberMe = true;
             string returnUrl = Url.Action("Index", "Home");
             if (ModelState.IsValid)
             {
